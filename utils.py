@@ -22,6 +22,7 @@ def parse(filename):
     G.add_edges_from(edges)
     
     return G
+
     # -->(1) Define a set with the unique state names
     # -->(2) Define a list with containing the 
     # -->(3) Define the rank value for each link
