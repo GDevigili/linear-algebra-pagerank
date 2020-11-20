@@ -16,7 +16,7 @@ def parse(filename):
     edges = [(row[0], row[2]) for row in data]              # (2)-->
 
     nbr_of_nodes = len(nodes)
-    rank = 1/float(nodes)                                   # (3)-->
+    rank = 1/float(nbr_of_nodes)                                   # (3)-->
 
     G.add_nodes_from(nodes, rank=rank)
     G.add_edges_from(edges)

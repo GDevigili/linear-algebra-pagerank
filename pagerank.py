@@ -22,13 +22,15 @@ class PageRank:
                 neighbors = self.graph[key]
                 for n in neighbors:
                     if self.ranks[n] is not None:
-                        outlinks = len(self.graph.neighbors(n))
+                        outlinks = len(list(self.graph.neighbors(n))) #I had to change the tipe for a list because dict_keyiterator objects have no len()
                         rank_sum += (1 / float(outlinks)) * self.ranks[n]
                         
                 #actual page rank compution
                 self.ranks[key] = ((1 - float(self.d)) * (1/float(self.V))) + self.d * rank_sum
                 
         return self.ranks
+    
+print(PageRank(parse("stateborders.csv")).rank())
 '''    
 
 if __name__ == '__main__':
