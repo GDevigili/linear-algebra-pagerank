@@ -4,7 +4,7 @@ import networkx as nx
 from collections import defaultdict
 
 
-def parse(filename, isDirected):
+def parse(filename):
     
     file = csv.reader(open(filename, 'r'), delimiter=',')
     data = [row for row in file]
@@ -26,16 +26,17 @@ def parse(filename, isDirected):
     # -->(2) Define a list with containing the 
     # -->(3) Define the rank value for each link
     
-print(parse("stateborders.csv", 0))
 
 def digits(val):
     return int(re.sub("\D", "", val))
+
 
 def format_key(key): #cleans the key string
     key = key.strip()
     if key.startswith('"') and key.endswith('"'):
         key = key[1:-1]
     return key
+
 
 def print_results(f, method, results):
     print(method)
