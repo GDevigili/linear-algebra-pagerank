@@ -14,3 +14,4 @@ def parse(filename, isDirected):
         return parse_directed(data)
     else:
         return parse_undirected(data)
+
