@@ -31,6 +31,7 @@ class PageRank:
         return self.ranks
     
 print(PageRank(parse("stateborders.csv")).rank())
+
 '''    
 
 if __name__ == '__main__':
