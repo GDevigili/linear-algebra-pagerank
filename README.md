@@ -1,3 +1,5 @@
+[Veja o notebook do projeto:](https://github.com/GDevigili/linear-algebra-pagerank/blob/main/notebook.ipynb) 
+
 # Linear Algebra: PageRank
 Fundação Getúlio Vargas - Escola de Matemática Aplicada \
 Bacharelado em Ciência de Dados \
