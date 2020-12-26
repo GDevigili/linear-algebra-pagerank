@@ -142,3 +142,131 @@ nx.draw_spring(graph, with_labels =  True, alpha = 0.8)
 ```
 
 ![Nx Graph](https://github.com/GDevigili/linear-algebra-pagerank/blob/main/img/nx_graph.png)
+
+### 3.1. O Algoritmo em _python_
+
+O cálculo do _pagerank_ é dado pelo seguinte algoritmo em _python:_
+
+```python3
+V = len(graph) 
+alpha = 0.85 #alpha = 0.85 é o mesmo usado pela Google
+
+ranks = {}
+
+for key, node in graph.nodes(data=True):
+    ranks[key] = node.get("rank") #atribui o valor inicial de 0.02040816326530612 a todos os vértices
+
+for i in range(10): # itera 10 vezes, algoritmos como o do Google realizam entre 50 e 100 iterações
+    for key, node in graph.nodes(data=True): 
+        rank_sum = 0
+        curr_rank = node.get('rank')
+
+        neighbors = graph[key]
+        for n in neighbors:
+            if ranks[n] is not None:
+                outlinks = len(list(graph.neighbors(n)))
+                rank_sum += (1 / float(outlinks)) * ranks[n]
+
+        ranks[key] = ((1 - float(alpha)) * (1/float(V))) + alpha * rank_sum
+
+sorted(ranks.items(), key = lambda x : x[1], reverse = True)
+```
+
+>('MO', 0.0315771412775698),
+ ('KY', 0.031067896293299854),
+ ('TN', 0.031058509939360428),
+ ('MA', 0.0286732706671126),
+ ('PA', 0.026872000240915704),
+ ('MD', 0.02667225082531666),
+ ('GA', 0.026244091037310922),
+ ('NY', 0.02606523828313355),
+ ('SD', 0.02593368857842075),
+ ('WY', 0.025713246689327465),
+ ('IA', 0.025503159256626648),
+ ('CO', 0.025298171749271164),
+ ('ID', 0.02510499447534387),
+ ('VA', 0.025051426291786118),
+ ('AR', 0.023258083447774712),
+ ('OK', 0.022328740382571648),
+ ('NV', 0.02169859200056445),
+ ('NB', 0.021462370926652284),
+ ('NE', 0.02144870658728615),
+ ('OH', 0.021091223262018295),
+ ('WV', 0.020941539230207022),
+ ('TX', 0.02035526794617019),
+ ('NH', 0.020284686703420284),
+ ('UT', 0.02011980670612335),
+ ('IL', 0.019488115836470792),
+ ('OR', 0.01870699805824562),
+ ('KS', 0.01822801336480884),
+ ('AL', 0.018043210579888627),
+ ('VT', 0.01797738325168396),
+ ('NC', 0.017955559262623086),
+ ('CT', 0.01768558165204955),
+ ('AZ', 0.017593815549587256),
+ ('MS', 0.01712770731584521),
+ ('IN', 0.017013279191891623),
+ ('WI', 0.016713203745370078),
+ ('MT', 0.016475418102944235),
+ ('MN', 0.016444922398000373),
+ ('NM', 0.016373197711261677),
+ ('NJ', 0.015385655533724155),
+ ('DE', 0.014881149542499148),
+ ('CA', 0.014344259241949375),
+ ('MI', 0.013693562049299456),
+ ('LA', 0.013331966874561996),
+ ('ND', 0.01308101357690253),
+ ('RI', 0.012821574273799423),
+ ('FL', 0.010482035006529635),
+ ('WA', 0.010472954441972477),
+ ('SC', 0.010464826249464442),
+ ('DC', 0.010258044894149882),
+ ('MV', 0.010020709318671205),
+ ('ME', 0.008682865070264053)
+ 
+ ## 4.  Conclusão
+O algoritmo _PageRank_ é de suma importância para diversos tipos de software, em especial sistemas de recomendação e mecanismos de pesquisa. Contudo, como todo algoritmo, está suscetível a falhas, principalmente as induzidas como _websites_ de _spam_ que aumentavam o _pagerank_ de outros, portanto sozinho ele pode não ser efetivo. Também há a questão de que, em determinados contextos, o maior _pagerank_ pode não ser o resultado mais relevante para determinado usuário.
+
+<br>Tabela 1: Os 5 estados com o maior _pagerank_
+<table>
+    <th>
+    Estado<td> Pagerank </td>
+    </th>
+    <tr>
+    <td>Missouri</td><td>0.03154419141589557</td>
+    </tr>
+    <tr>
+    <td>Kentucky</td><td>0.03107864029675898</td>
+    </tr>
+    <tr>
+    <td>Tennessee</td><td>0.031062265257940133</td>
+    </tr>
+    <tr>
+    <td>Massachusetts</td><td>0.028718919537401348</td>
+    </tr>
+    <tr>
+    <td>Pensilvânia</td><td>0.026872163950321677</td>
+    </tr>
+</table><br>
+<center>Fonte: Dados Primários, 2020.<br></center>
+
+<br>Quanto aos resultados da implementação, os 5 maiores pageranks, representados na tabela 1 são referentes a estados centralizados com uma grande densidade urbana, como o esperado. Também é importante ressaltar que Missouri, Kentucky e Tennessee são estados que possuem fronteiras entre si,
+como se pode observar na figura 4, evidenciando a característica do _pagerank_ de analisar não apenas a própria relevância de um nó mas sim a relevância de seus _links_.
+
+Figura 4: Os 5 estados com o Maior _pagerank_ <br>
+<center><img src="img/us_map.png"> <br></center>
+<center>Fonte: Dados Primários, 2020</center>
+
+## Referências
+
+AUSTIN, David. **How Google Finds Your Needle in the Web's Haystack. American Mathematical Society**, 2006. Disponível em: http://www.ams.org/publicoutreach/feature-column/fcarc-pagerank. Acesso em: 14 nov. 2020. <br>
+
+ASP, Timothy. **PageRank.** 2015. Disponível em: https://github.com/timothyasp/PageRank. Acesso em: 18 nov. 2020.<br>
+
+GLEICH, David F. **PAGERANK BEYOND THE WEB**. 2014. Disponível em: https://arxiv.org/pdf/1407.5107.pdf. Acesso em: 16 nov. 2020.
+
+GOOGLE. **Como funcionam os algoritmos da Pesquisa:** classificar páginas úteis. Classificar páginas úteis. Disponível em: https://www.google.com/search/howsearchworks/algorithms/. Acesso em: 14 nov. 2020. <br>
+
+MILLER, Colton. **A HISTORY LESSON ON PAGERANK**. 2020. Disponível em: https://www.boostability.com/a-history-lesson-on-pagerank/#:~:text=Google%20founders%20Larry%20Page%20and,backbone%20behind%20Google%20search%20results. Acesso em: 14 nov. 2020.
+
+WEISSTEIN, Eric W. **Contiguous USA Graph.** 201-. Disponível em: https://mathworld.wolfram.com/ContiguousUSAGraph.html. Acesso em: 21 nov. 2020. <br>
