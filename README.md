@@ -1,4 +1,4 @@
-#Linear Algebra: PageRank
+# Linear Algebra: PageRank
 Fundação Getúlio Vargas - Escola de Matemática Aplicada \
 Bacharelado em Ciência de Dados \
 Curso de Álgebra Linear \
